@@ -13,6 +13,7 @@ Ball.prototype.draw = function(color){
   //this.game.ctx.drawImage()
   this.game.ctx.fillStyle = color;
   this.game.ctx.arc(0,0,this.radius,0,Math.PI*2);
+  this.game.ctx.fill();
   this.game.ctx.restore();
 };
 

@@ -57,3 +57,50 @@ Game.prototype.moveAll = function(){
   this.ball.move();
 };
 
+Game.prototype.handleKeyDown = function(key){
+  console.log(key);
+  switch(key){
+    case 38: // Up
+     this.acc = -0.5;
+     break;
+    case 40: // down
+     this.acc = 0.5;
+     break; 
+    case 37: // left
+     this.turnAngleSpeed(-1);
+     break; 
+    case 39: // right
+     this.turnAngleSpeed(1);
+     break;
+     
+  }
+};
+
+Game.prototype.handleKeyUp = function(key){
+  switch(key){
+   case 38: // Up
+    this.acc = 0;
+    break;
+   case 40: // down
+    this.acc = 0;
+    break; 
+   case 37: // left
+    this.angularSpeed = 0;
+    break; 
+   case 39: // right
+    this.angularSpeed = 0;
+    break; 
+ }
+};
+
+document.onkeydown = function(e){
+  e.preventDefaults();
+  this.car1.handleKeyDown(e.keyCode);
+  this.car2.handleKeyDown(e.keyCode);
+};
+
+document.onkeyup = function(e){
+  e.preventDefaults();
+  this.car1.handleKeyUp(e.keyCode);  
+  this.car2.handleKeyUp(e.keyCode);
+};
