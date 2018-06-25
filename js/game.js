@@ -3,6 +3,7 @@ function Game(canvasId){
   this.ctx = canvas.getContext('2d');
   this.fps = 60;
   this.reset();
+  this.setListeners();
 }
 
 Game.prototype.clean = function(){
@@ -10,24 +11,13 @@ Game.prototype.clean = function(){
 };
 
 Game.prototype.start = function(){
-  //this.animation = window.requestAnimationFrame(this.update);
-  
   this.interval = setInterval(function(){
-    this.clean();
     this.drawAll();
     this.moveAll();
   }.bind(this), 1000/this.fps);
 };
 
-Game.prototype.update = function(){
-  this.clean();
-  this.drawAll();
-  this.moveAll();
-  window.requestAnimationFrame(this.update);
-};
-
-Game.prototype.stop = function() {
-  // window.cancelAnimationFrame(this.animation);
+Game.prototype.stop = function(){
   clearInterval(this.interval);
 };
 
@@ -36,9 +26,6 @@ Game.prototype.reset = function() {
   this.car1 = new Car(this, 20, this.canvas.height/2, 0);
   this.car2 = new Car(this, this.canvas.width-20, this.canvas.height/2, 180);
   this.ball = new Ball(this, this.canvas.width/2, this.canvas.height/2);
-  console.log(this.ball);
-  console.log(this.car1);
-  
   this.score1 = 0;
   this.score2 = 0;
 };
@@ -57,50 +44,64 @@ Game.prototype.moveAll = function(){
   this.ball.move();
 };
 
-Game.prototype.handleKeyDown = function(key){
-  console.log(key);
-  switch(key){
-    case 38: // Up
-     this.acc = -0.5;
-     break;
-    case 40: // down
-     this.acc = 0.5;
-     break; 
-    case 37: // left
-     this.turnAngleSpeed(-1);
-     break; 
-    case 39: // right
-     this.turnAngleSpeed(1);
-     break;
-     
-  }
-};
+Game.prototype.setListeners = function(){
+  document.onkeydown = function(e){
+    e.preventDefault();
+    switch(e.keyCode){
+      case 38: // Up
+        this.car1.acc = -0.5;
+        break;
+      case 40: // down
+        this.car1.acc = 0.5;
+        break; 
+      case 37: // left
+        this.car1.turnAngleSpeed(-1);
+        break; 
+      case 39: // right
+        this.car1.turnAngleSpeed(1);
+        break;
+      case 87: // W
+        this.car2.acc = -0.5;
+        break;
+      case 83: // S
+        this.car2.acc = 0.5;
+        break; 
+      case 65: // A
+        this.car2.turnAngleSpeed(-1);
+        break; 
+      case 68: // D
+        this.car2.turnAngleSpeed(1);
+        break;
+    }
+  }.bind(this);
 
-Game.prototype.handleKeyUp = function(key){
-  switch(key){
-   case 38: // Up
-    this.acc = 0;
-    break;
-   case 40: // down
-    this.acc = 0;
-    break; 
-   case 37: // left
-    this.angularSpeed = 0;
-    break; 
-   case 39: // right
-    this.angularSpeed = 0;
-    break; 
- }
-};
-
-document.onkeydown = function(e){
-  e.preventDefaults();
-  this.car1.handleKeyDown(e.keyCode);
-  this.car2.handleKeyDown(e.keyCode);
-};
-
-document.onkeyup = function(e){
-  e.preventDefaults();
-  this.car1.handleKeyUp(e.keyCode);  
-  this.car2.handleKeyUp(e.keyCode);
+  document.onkeyup = function(e){
+    e.preventDefault();
+    switch(e.keyCode){
+      case 38: // Up
+        this.car1.acc = 0;
+        break;
+      case 40: // down
+        this.car1.acc = 0;
+        break; 
+      case 37: // left
+        this.car1.angularSpeed = 0;
+        break; 
+      case 39: // right
+        this.car1.angularSpeed = 0;
+        break;
+      case 87: // W
+        this.car2.acc = 0;
+        break;
+      case 83: // S
+        this.car2.acc = 0;
+        break; 
+      case 65: // A
+        this.car2.angularSpeed = 0;
+        break; 
+      case 68: // D
+        this.car2.angularSpeed = 0;
+        break;
+    }
+  }.bind(this);
 };
