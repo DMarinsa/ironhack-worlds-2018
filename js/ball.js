@@ -1,7 +1,7 @@
-function Ball(game){
+function Ball(game, x, y){
   this.game = game;
-  this.x = 0;
-  this.y = 0;
+  this.x = x;
+  this.y = y;
   this.speed = 0;
   this.acc = 0;
   this.radius = 20;
@@ -9,11 +9,11 @@ function Ball(game){
 
 Ball.prototype.draw = function(color){
   this.game.ctx.save();
-  this.game.ctx.translate(this.game.canvas.width/2+this.radius, this.game.canvas.heigth/2+this.radius);
+  this.game.ctx.translate(this.x, this.y);
   //this.game.ctx.drawImage()
   this.game.ctx.fillStyle = color;
-  this.game.ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
-  this.game.restore();
+  this.game.ctx.arc(0,0,this.radius,0,Math.PI*2);
+  this.game.ctx.restore();
 };
 
 Ball.prototype.move = function(){

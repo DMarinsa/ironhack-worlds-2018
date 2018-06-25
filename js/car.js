@@ -2,11 +2,11 @@ function Car(game, x,y, angle){
   this.game = game;
   this.x = x;
   this.y = y;
-  this.angle = this.decToRadians(angle);
+  this.angle = this.degToRadians(angle);
   this.angularSpeed = 0;
   this.speed = 0;
   this.acc = 0;
-  this.carSize = 50;
+  this.carSize = 100;
   // this.img = new Image();
   // this.ratio = 900/490;
   // this.img.src = "https://i.pinimg.com/originals/9c/4e/6c/9c4e6cdc5ea03c911967c82f1ea80956.png"
@@ -21,7 +21,8 @@ Car.prototype.draw = function(color){
   this.game.ctx.translate(this.x, this.y);
   this.game.ctx.rotate(this.angle);
   this.game.ctx.fillStyle = color;
-  this.game.ctx.fillRect(-this.carSize*1,5/2,-this.carSize/2,this.carSize*1,5,this.carSize);
+  this.game.ctx.fillRect(0, 0,this.carSize,this.carSize/2);
+  this.game.ctx.stroke();
   // this.game.ctx.drawImage(this.img,
   //               -this.carSize*this.ratio/2,
   //               -this.carSize/2, 

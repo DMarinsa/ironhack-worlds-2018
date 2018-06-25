@@ -5,18 +5,18 @@ function Game(canvasId){
   this.reset();
 }
 
-Game.prototype.clean= function(){
+Game.prototype.clean = function(){
   this.ctx.clearRect(0,0,this.canvas.width,this.canvas.heigth);
 };
 
 Game.prototype.start = function(){
-  this.animation = window.requestAnimationFrame(this.update);
+  //this.animation = window.requestAnimationFrame(this.update);
   
-  /* this.interval = setInterval(function(){
+  this.interval = setInterval(function(){
     this.clean();
     this.drawAll();
     this.moveAll();
-  }.bind(this), 1000/fps); */
+  }.bind(this), 1000/this.fps);
 };
 
 Game.prototype.update = function(){
@@ -27,28 +27,33 @@ Game.prototype.update = function(){
 };
 
 Game.prototype.stop = function() {
-  window.cancelAnimationFrame(this.animation);
-  //clearInterval(this.interval);
+  // window.cancelAnimationFrame(this.animation);
+  clearInterval(this.interval);
 };
 
 Game.prototype.reset = function() {
   this.background = new Background(this);
-  this.player1 = new Player(this);
-  this.player2 = new Player(this);
-  this.ball = new Ball(this);
+  this.car1 = new Car(this, 20, this.canvas.height/2, 0);
+  this.car2 = new Car(this, this.canvas.width-20, this.canvas.height/2, 180);
+  this.ball = new Ball(this, this.canvas.width/2, this.canvas.height/2);
+  console.log(this.ball);
+  console.log(this.car1);
+  
   this.score1 = 0;
   this.score2 = 0;
 };
 
 Game.prototype.drawAll = function(){
-  this.player1.draw();
-  this.player2.draw();
-  this.ball.draw();
+  this.clean();
+  this.background.draw('green');
+  this.car1.draw('orange');
+  this.car2.draw('blue');
+  this.ball.draw('black');
 };
 
 Game.prototype.moveAll = function(){
-  this.player1.move();
-  this.player2.move();
+  this.car1.move();
+  this.car2.move();
   this.ball.move();
 };
 
