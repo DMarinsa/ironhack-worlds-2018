@@ -27,21 +27,39 @@ Game.prototype.stop = function(){
 
 Game.prototype.reset = function() {
   this.background = new Background(this);
-  this.car1 = new Car(this, this.canvas.width-20, this.canvas.height/2, 180);
-  this.car2 = new Car(this, 20, this.canvas.height/2, 0);
+  this.car1 = new Car(this, this.canvas.width-160, 193, 0);
+  this.car2 = new Car(this, 160, (this.canvas.height+80)/2, 180);
   this.ball = new Ball(this, this.canvas.width/2, this.canvas.height/2);
   this.score1 = 0;
   this.score2 = 0;
 };
 
 Game.prototype.drawAll = function(){
-  this.background.draw('green');
-  this.car1.draw('orange');
-  this.car2.draw('blue');
+  this.background.draw();
+  this.car1.draw();
+  this.car2.draw();
   this.ball.draw('black');
 };
 
 Game.prototype.moveAll = function(){
+  if(this.collisionWithBall(this.car1, this.ball)){
+    if(this.car1.speed<0.5 && this.car1.speed>-0.5){
+      this.ball.speedX = -this.ball.speedX;
+      this.ball.speedY = -this.ball.speedY;
+    } else {
+      this.ball.speedX = 1+this.car1.speed*Math.cos(this.car1.angle);
+      this.ball.speedY = 1+this.car1.speed*Math.sin(this.car1.angle);
+    }
+  }
+  if(this.collisionWithBall(this.car2, this.ball)){
+    if(this.car2.speed<0.5 && this.car2.speed>-0.5){
+      this.ball.speedX = -this.ball.speedX;
+      this.ball.speedY = -this.ball.speedY;
+    } else {
+      this.ball.speedX = 1+this.car2.speed*Math.cos(this.car2.angle);
+      this.ball.speedY = 1+this.car2.speed*Math.sin(this.car2.angle);
+    }
+  }
   this.car1.move();
   this.car2.move();
   this.ball.move();
@@ -107,4 +125,26 @@ Game.prototype.setListeners = function(){
         break;
     }
   }.bind(this);
+};
+
+Game.prototype.collisionWithBall = function(car,ball){
+  var dx = car.x-ball.x;
+  var dy = car.y-ball.y;
+  var distance = Math.sqrt(dx*dx+dy*dy);
+  if(distance>(ball.radius+car.carSize*car.ratio/3)){
+    return false;
+  }else {
+    return true;
+  }
+};
+
+Game.prototype.collisionBetweenCars = function(car1,car2){
+  var dx = car1.x-car2.x;
+  var dy = car1.y-car2.y;
+  var distance = Math.sqrt(dx*dx+dy*dy);
+  if(distance<(car1.carSize+car2.carSize)){
+    return true;
+  } else {
+    return false;
+  }
 };
