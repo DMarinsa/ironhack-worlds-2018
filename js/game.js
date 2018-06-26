@@ -154,10 +154,11 @@ Game.prototype.setListeners = function () {
 };
 
 Game.prototype.collisionWithBall = function (car, ball) {
-  var dx = car.x - ball.x;
-  var dy = car.y - ball.y;
-  var distance = Math.sqrt(dx * dx + dy * dy);
-  if (distance <= (ball.radius + car.carSize * car.ratio / 3)) {
+  var dx2 = car.x - ball.x;
+  var dx1 = car.x - ball.x;
+  var dy1 = car.y - ball.y;
+  var distance1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
+  if (distance1 <= (ball.radius + car.carSize * car.ratio / 3)) {
     return true;
   } else {
     return false;

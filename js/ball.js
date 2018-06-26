@@ -22,7 +22,7 @@ Ball.prototype.draw = function(color){
 };
 
 Ball.prototype.move = function(){
-  this.speed *= 0.95;
+  
   //Limits on X Axis
   if( (this.x) > 0 && (this.x+this.radius)<=this.game.canvas.width){
     this.x += this.speedX;
@@ -34,6 +34,7 @@ Ball.prototype.move = function(){
       this.x = this.game.canvas.width-this.radius;
     }
     this.speedX = -this.speedX;
+    this.speedX *= 0.99;
   }
 
   //Limits on Y Axis
@@ -48,6 +49,7 @@ Ball.prototype.move = function(){
       this.y = this.game.canvas.height-25;
     }
     this.speedY = -this.speedY;
+    this.speedY *= 0.99;
   }
   this.speed = Math.sqrt(Math.pow(this.speedX,2)+Math.pow(this.speedY,2));
 };

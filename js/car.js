@@ -18,6 +18,8 @@ Car.prototype.draw = function(){
   this.game.ctx.save();
   this.game.ctx.beginPath();
   this.game.ctx.translate(this.x, this.y);
+  this.game.ctx.arc(0,0 ,this.carSize*this.ratio/3, 0, Math.PI*2);
+  this.game.ctx.fill();
   this.game.ctx.rotate(this.angle);
   this.game.ctx.drawImage(this.img,
                           -this.carSize*this.ratio/3,
@@ -37,26 +39,26 @@ Car.prototype.move = function(){
    this.speed *= 0.95;
 
    // Limits on X Axis
-   if(this.x>=0 && this.x <= this.game.canvas.width){
+   if(this.x>=this.carSize && this.x <= this.game.canvas.width-this.carSize){
     this.x += this.speed * Math.cos(this.angle);
    } else {
      this.acc = 0;
-     if(this.x<0){
-       this.x=0;
+     if(this.x<this.carSize){
+       this.x=this.carSize;
      }else{
-       this.x = this.game.canvas.width;
+       this.x = this.game.canvas.width-this.carSize;
      }
    }
 
    //Limits on Y Axis
-   if(this.y>=0 && this.y <= this.game.canvas.height){
+   if(this.y>=this.carSize/2 && this.y <= this.game.canvas.height-this.carSize/2){
     this.y += this.speed * Math.sin(this.angle);
    } else {
      this.acc = 0;
-     if(this.y<0){
-       this.y=0;
+     if(this.y<this.carSize/2){
+       this.y=this.carSize/2;
      }else{
-       this.y = this.game.canvas.height;
+       this.y = this.game.canvas.height-this.carSize/2;
      }
    }
    
