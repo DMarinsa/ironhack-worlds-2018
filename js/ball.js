@@ -4,7 +4,7 @@ function Ball(game, x, y){
   this.y = y;
   this.speedX = 0;
   this.speedY = 0;
-  this.radius = 20;
+  this.radius = 15;
   this.img = new Image();
   this.img.src = './images/ball.png';
 }
@@ -23,7 +23,6 @@ Ball.prototype.draw = function(color){
 
 Ball.prototype.move = function(){
   this.speed *= 0.95;
-
   //Limits on X Axis
   if( (this.x) > 0 && (this.x+this.radius)<=this.game.canvas.width){
     this.x += this.speedX;
@@ -41,8 +40,7 @@ Ball.prototype.move = function(){
 
   if( (this.y) > 0 && (this.y+this.radius)<=this.game.canvas.height){
     this.y += this.speedY;
-  } else {
-    console.log(this.y);    
+  } else {   
     if(this.y<=0){
       this.y = 1;
     }
@@ -51,4 +49,5 @@ Ball.prototype.move = function(){
     }
     this.speedY = -this.speedY;
   }
+  this.speed = Math.sqrt(Math.pow(this.speedX,2)+Math.pow(this.speedY,2));
 };
