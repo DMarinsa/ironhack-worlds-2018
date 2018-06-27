@@ -1,4 +1,5 @@
-function Ball(game, x, y){
+// Constructor function
+function Ball(game, x, y) {
   this.game = game;
   this.x = x;
   this.y = y;
@@ -9,47 +10,50 @@ function Ball(game, x, y){
   this.img.src = './images/ball.png';
 }
 
-Ball.prototype.draw = function(color){
+// Function to render the ball
+Ball.prototype.draw = function (color) {
   this.game.ctx.save();
   this.game.ctx.beginPath();
   this.game.ctx.translate(this.x, this.y);
-  //this.game.ctx.drawImage()
-  this.game.ctx.fillStyle = color;
-  this.game.ctx.arc(0,0,this.radius,0,Math.PI*2);
-  this.game.ctx.fill();
+  this.game.ctx.drawImage(this.img,
+    0,
+    0,
+    this.radius * 2,
+    this.radius * 2);
   this.game.ctx.closePath();
   this.game.ctx.restore();
 };
 
-Ball.prototype.move = function(){
-  
+// Function to update ball position
+Ball.prototype.move = function () {
+
   //Limits on X Axis
-  if( (this.x) > 0 && (this.x+this.radius)<=this.game.canvas.width){
+  if ((this.x) > 0 && (this.x + this.radius) <= this.game.canvas.width) {
     this.x += this.speedX;
-  } else {   
-    if(this.x<=0){
+  } else {
+    if (this.x <= 0) {
       this.x = 1;
     }
-    if(this.x+this.radius>=this.game.canvas.width){
-      this.x = this.game.canvas.width-this.radius;
+    if (this.x + this.radius >= this.game.canvas.width) {
+      this.x = this.game.canvas.width - this.radius;
     }
     this.speedX = -this.speedX;
-    this.speedX *= 0.99;
   }
+  this.speedX *= 0.985;
 
   //Limits on Y Axis
 
-  if( (this.y) > 0 && (this.y+this.radius)<=this.game.canvas.height){
+  if ((this.y) > 0 && (this.y + this.radius) <= this.game.canvas.height) {
     this.y += this.speedY;
-  } else {   
-    if(this.y<=0){
+  } else {
+    if (this.y <= 0) {
       this.y = 1;
     }
-    if(this.y+this.radius>=this.game.canvas.height){
-      this.y = this.game.canvas.height-25;
+    if (this.y + this.radius >= this.game.canvas.height) {
+      this.y = this.game.canvas.height - 25;
     }
     this.speedY = -this.speedY;
-    this.speedY *= 0.99;
   }
-  this.speed = Math.sqrt(Math.pow(this.speedX,2)+Math.pow(this.speedY,2));
+  this.speedY *= 0.985;
+  this.speed = Math.sqrt(Math.pow(this.speedX, 2) + Math.pow(this.speedY, 2));
 };

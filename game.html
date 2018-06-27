@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,18 +13,19 @@
   <script type="text/javascript" src="./js/init.js"></script>
   <title>World Cup 2018</title>
 </head>
-
 <body>
-  <div id="title-container">
-    <div id="cup-container">
-      <img src="./images/world_cup.png" alt="world-cup" id="world-cup">
-      <h2>Ironhack Madrid 2018</h2>
-    </div>
-    <div id="title-button-container">
-      <h1 id="title">World Cup 2018</h1>
-      <a id="start-button" href='game.html'>Start Game</a>
-    </div>
+  <header>
+    <h1>IronHack World Cup 2018</h1>
+    <h2 id="timer"></h2>
+  </header>
+  <div class="score-container">
+    <h2 id="score1"></h2>
+  </div>
+  <div id="canvas-container" class="hidden">
+      <canvas id="canvas" width="900px" height="500px"></canvas>
+  </div>
+  <div class="score-container">
+    <h2 id="score1"></h2>
   </div>
 </body>
-
 </html>
