@@ -14,9 +14,7 @@ function Game(canvasId) {
   this.canvas = document.getElementById(canvasId);
   this.ctx = canvas.getContext('2d');
   this.fpsCounter = 0;
-  this.time = 20;
-  this.score1 = 0;
-  this.score2 = 0;
+  this.score = new Score();
 
   //Audio Elements
   this.goalSound = new Audio('./sounds/si.mp3');
@@ -43,7 +41,7 @@ Game.prototype.update = function () {
     this.goalSound.play();
     this.reset();
   }
-  if(this.time == 0){
+  if(this.score.time == 0){
     if(confirm('Final! España: '+this.score1+' Argentina: '+this.score2)){
       this.reset();
     } else{
@@ -52,12 +50,12 @@ Game.prototype.update = function () {
   }
   this.fpsCounter++;
   if (this.fpsCounter % 60 == 0) {
-    this.time--;
-    if (this.time == 0) {
+    this.score.time--;
+    if (this.score.time == 0) {
     }
   }
 
-  document.getElementById('timer').innerHTML = this.returnLegibleTime();
+  this.score.updateTime();
   this.clean();
   this.drawAll();
   this.checkCollisions();
@@ -237,32 +235,19 @@ Game.prototype.isGoal = function (ball) {
   if (ball.x <= ball.radius &&
     ball.y < this.canvas.height / 2 + 50 &&
     ball.y > this.canvas.height / 2 - 50) {
-    this.score2++;
-    if (this.score2 < 10) scoreString = '0' + this.score2;
-    else scoreString = this.score2;
-    document.getElementById('score2').innerHTML = scoreString;
+    this.score.score2++;
+    if (this.score.score2 < 10) scoreString = '0' + this.score.score2;
+    else scoreString = this.score.score2;
+    this.score.updateScore('score2', scoreString);
     return true;
   } else if (ball.x >= this.canvas.width - +ball.radius &&
     ball.y < this.canvas.height / 2 + 50 &&
     ball.y > this.canvas.height / 2 - 50) {
-    this.score1++;
-    if (this.score1 < 10) scoreString = '0' + this.score1;
-    else scoreString = this.score1;
-
-    document.getElementById('score1').innerHTML = scoreString;
+    this.score.score1++;
+    if (this.score.score1 < 10) scoreString = '0' + this.score.score1;
+    else scoreString = this.score.score1;
+    this.score.updateScore('score1', scoreString);
     return true;
   }
   return false;
-};
-
-Game.prototype.returnLegibleTime = function () {
-  var seconds = this.time, minutes = Math.floor(seconds / 60);
-  seconds = seconds - minutes * 60;
-  if (minutes < 10) {
-    minutes = '0' + minutes;
-  }
-  if (seconds < 10) {
-    seconds = '0' + seconds;
-  }
-  return minutes + ':' + seconds;
 };
