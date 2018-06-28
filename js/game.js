@@ -14,13 +14,14 @@ function Game(canvasId) {
   this.canvas = document.getElementById(canvasId);
   this.ctx = canvas.getContext('2d');
   this.fpsCounter = 0;
-  this.time = 180;
+  this.time = 20;
   this.score1 = 0;
   this.score2 = 0;
 
   //Audio Elements
   this.goalSound = new Audio('./sounds/si.mp3');
   this.vuvuzela = new Audio('./sounds/vuvuzela.mp3');
+  this.startEngine = new Audio('./sounds/arrancar.mp3');
   this.reset();
   this.setListeners();
 }
@@ -41,6 +42,13 @@ Game.prototype.update = function () {
   if (this.isGoal(this.ball)) {
     this.goalSound.play();
     this.reset();
+  }
+  if(this.time == 0){
+    if(confirm('Final! España: '+this.score1+' Argentina: '+this.score2)){
+      this.reset();
+    } else{
+      window.location = './index.html';
+    }
   }
   this.fpsCounter++;
   if (this.fpsCounter % 60 == 0) {
@@ -68,6 +76,7 @@ Game.prototype.reset = function () {
   this.background = new Background(this);
   this.car1 = new Car(this, this.canvas.width - 160, 193, 0, './images/car1.png');
   this.car2 = new Car(this, 160, (this.canvas.height + 80) / 2, 180, './images/car2.png');
+  this.startEngine.play();
   this.ball = new Ball(this, this.canvas.width / 2, this.canvas.height / 2);
 };
 
@@ -184,6 +193,7 @@ Game.prototype.setListeners = function () {
         break;
       case keyboard.KEY_H: // D
         this.vuvuzela.play();
+        this.vuvuzela.volume = 1;
         break;
     }
   }.bind(this);

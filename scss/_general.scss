@@ -4,6 +4,10 @@ body{
   background-color: $grey-background;
 }
 
+#audio.inicio{
+  display:none;
+}
+
 #title-container{
   display:flex;
   flex-direction: column;
@@ -108,6 +112,7 @@ body{
   align-items:center;
   padding: 15px 50px;
   height:100%;
+  width:100px;
   background-color: $black-font;
   color: $digital-green;
   font-family: $digital-font;
