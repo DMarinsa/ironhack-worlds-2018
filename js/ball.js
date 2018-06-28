@@ -28,14 +28,14 @@ Ball.prototype.draw = function (color) {
 Ball.prototype.move = function () {
 
   //Limits on X Axis
-  if ((this.x) > 0 && (this.x + this.radius) <= this.game.canvas.width) {
+  if ((this.x) > 0 && (this.x + this.radius) < this.game.canvas.width) {
     this.x += this.speedX;
   } else {
-    if (this.x <= 0) {
-      this.x = 1;
+    if (this.x -this.radius <= 0) {
+      this.x = this.radius;
     }
     if (this.x + this.radius >= this.game.canvas.width) {
-      this.x = this.game.canvas.width - this.radius;
+      this.x = this.game.canvas.width - this.radius -20;
     }
     this.speedX = -this.speedX;
   }
@@ -43,17 +43,18 @@ Ball.prototype.move = function () {
 
   //Limits on Y Axis
 
-  if ((this.y) > 0 && (this.y + this.radius) <= this.game.canvas.height) {
+  if ((this.y) > 0 && (this.y + this.radius) < this.game.canvas.height) {
     this.y += this.speedY;
   } else {
-    if (this.y <= 0) {
-      this.y = 1;
+    if (this.y -this.radius <= 0) {
+      this.y = this.radius;
     }
     if (this.y + this.radius >= this.game.canvas.height) {
-      this.y = this.game.canvas.height - 25;
+      this.y = this.game.canvas.height - this.radius -20;
     }
     this.speedY = -this.speedY;
   }
   this.speedY *= 0.985;
+  // vectorial composition to calculate collissions result
   this.speed = Math.sqrt(Math.pow(this.speedX, 2) + Math.pow(this.speedY, 2));
 };
