@@ -82,3 +82,15 @@ Car.prototype.turnAngleSpeed = function (angularSpeed) {
     this.angularSpeed += this.degToRadians(angularSpeed);
   }
 };
+
+Car.prototype.collisionBetweenCars = function (car) {
+  dx = this.x - car.x;
+  dy = this.y - car.y;
+  var distance = Math.sqrt(dx * dx + dy * dy);
+  if (distance < (this.ratio * this.carSize / 3 + car.ratio * car.carSize / 3) &&
+    distance < (this.carSize / 2 + car.carSize / 2)) {
+    return true;
+  } else {
+    return false;
+  }
+};

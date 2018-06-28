@@ -47,14 +47,25 @@ Ball.prototype.move = function () {
     this.y += this.speedY;
   } else {
     if (this.y -this.radius <= 0) {
-      this.y = this.radius;
+      this.y = 50;
     }
     if (this.y + this.radius >= this.game.canvas.height) {
-      this.y = this.game.canvas.height - this.radius -20;
+      this.y = this.game.canvas.height - 50;
     }
     this.speedY = -this.speedY;
   }
   this.speedY *= 0.985;
   // vectorial composition to calculate collissions result
   this.speed = Math.sqrt(Math.pow(this.speedX, 2) + Math.pow(this.speedY, 2));
+};
+
+Ball.prototype.collisionWithBall = function (car) {
+  var dx = car.x - this.x;
+  var dy = car.y - this.y;
+  var distance = Math.sqrt(dx * dx + dy * dy);
+  if (distance <= (this.radius + car.radius)) {
+    return true;
+  } else {
+    return false;
+  }
 };
