@@ -42,7 +42,7 @@ Game.prototype.update = function () {
     this.reset();
   }
   if(this.score.time == 0){
-    if(confirm('Final! España: '+this.score1+' Argentina: '+this.score2)){
+    if(confirm('Final! España: '+this.score.score1+' Argentina: '+this.score.score2)){
       this.reset();
     } else{
       window.location = './index.html';
