@@ -1,5 +1,5 @@
-ironhack-worlds-2018
-====================
+Ironhack World Finals 2018
+==========================
 # 2D rocket League
 
 https://dmarinsa.github.io/world-cup-finals-2018/
@@ -12,13 +12,29 @@ https://dmarinsa.github.io/world-cup-finals-2018/
 
 ## Biggest Challenge to solve yet?
 
-  Adjusting those collisions to the pixel.
+  Adjusting those collisions to the pixel & "pausing" the execution of the animation when a goal happens.
 
 ## What would I do different if I started all over again?
 
-  -Refactor the collisions.
-  -I would totally change the visual aspect :)
+  - Add a better final.
+  - Refactor the collisions.
+  - I would totally change the visual aspect :)
 
 ## A technical detail.
 
-  Game.js:126.
+  ```
+  Ball.prototype.collisionWithBall = function (car) {
+      var dx = car.x - this.x;
+      var dy = car.y - this.y;
+      var distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance <= (this.radius + car.radius)) {
+        return true;
+      } else {
+        return false;
+    }
+};
+  ```
+  ```
+    this.ball.speedX = 1.5 * this.car2.speed * Math.cos(this.car2.angle);
+    this.ball.speedY = 1.5 * this.car2.speed * Math.sin(this.car2.angle);
+  ```
